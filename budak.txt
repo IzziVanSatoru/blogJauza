@@ -1,0 +1,32 @@
+/blog-project
+├── /public
+│   └── favicon.ico
+├── /src
+│   ├── /assets
+│   │   └── (gambar, ikon, dll.)
+│   ├── /components
+│   │   ├── Navbar.vue
+│   │   ├── Footer.vue
+│   │   ├── PostCard.vue
+│   │   ├── CreatePost.vue
+│   │   └── CommentSection.vue
+│   ├── /pages
+│   │   ├── Home.vue
+│   │   ├── PostDetail.vue
+│   │   ├── Login.vue
+│   │   └── CreatePostPage.vue
+│   ├── /router
+│   │   └── index.js
+│   ├── /services
+│   │   └── supabase.js
+│   ├── /store
+│   │   └── user.js
+│   ├── /utils
+│   │   └── helpers.js
+│   ├── App.vue
+│   └── main.js
+├── .env
+├── index.html
+├── package.json
+├── vite.config.js
+└── README.md
