@@ -6,7 +6,9 @@
       <div class="navbar-links">
         <router-link to="/" class="nav-link">Home</router-link>
         <router-link to="/create" class="nav-link">Create Post</router-link>
+        <!-- Tampilkan Login hanya jika user belum login -->
         <router-link v-if="!user" to="/login" class="nav-link">Login</router-link>
+        <!-- Tampilkan Profile dan Logout jika user sudah login -->
         <router-link v-if="user" to="/profile" class="nav-link">Profile</router-link>
         <button v-if="user" @click="logout" class="logout-button">Logout</button>
       </div>
@@ -15,37 +17,31 @@
 </template>
 
 <script>
-import { auth, signOut } from '../services/firebase'
+import { auth } from "../services/firebase"; // Import auth dari firebase.js
+import { logout } from "../services/firebase"; // Import logout dari firebase.js
 
 export default {
   data() {
     return {
       user: null
-    }
+    };
   },
   async mounted() {
-    // Cek status login user secara real-time
+    // Memantau status login user secara real-time
     auth.onAuthStateChanged((user) => {
-      this.user = user
-    })
+      this.user = user; // Menyimpan informasi user setelah login
+    });
   },
   methods: {
-    async logout() {
-      try {
-        await signOut(auth)
-        this.user = null // Clear user data
-        this.$router.push('/login') // Redirect ke login setelah logout
-      } catch (error) {
-        console.error('Error logging out:', error.message)
-        alert('Logout failed: ' + error.message)
-      }
+    logout() {
+      logout(); // Panggil fungsi logout yang sudah didefinisikan di firebase.js
     }
   }
-}
+};
 </script>
 
 <style>
-/* Styling Navbar */
+/* Styling untuk navbar */
 .navbar {
   width: 100%;
   background-color: #34495e;

@@ -1,65 +1,45 @@
 <template>
-  <section class="login-page">
-    <div class="login-container">
-      <h1>Login</h1>
-      <button @click="loginWithGoogle" class="login-button">
-        Login with Google
-      </button>
-    </div>
-  </section>
+  <div class="login-container">
+    <h1>Login</h1>
+    <button @click="loginWithGoogle" class="login-button">
+      Login with Google
+    </button>
+  </div>
 </template>
 
 <script>
-import { auth, provider, signInWithPopup } from '../services/firebase'
+import { loginWithGoogle } from "../services/firebase"; // Import login function
 
 export default {
   methods: {
     async loginWithGoogle() {
       try {
-        const result = await signInWithPopup(auth, provider)
-        const user = result.user
-        console.log('User Info:', user)
-        alert('Login Success, Welcome ' + user.displayName)
+        const result = await loginWithGoogle();
+        const user = result.user;
+        console.log("User logged in:", user);
+        this.$router.push("/profile"); // Redirect ke profile setelah login
       } catch (error) {
-        console.error('Login Error:', error.message)
-        alert('Failed to login: ' + error.message)
+        console.error("Login failed:", error.message);
+        alert("Login failed: " + error.message); // Menampilkan error di UI untuk debugging
       }
     }
   }
-}
+};
 </script>
 
 <style>
-.login-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 80vh;
-  padding: 20px;
-}
-
 .login-container {
   text-align: center;
-  border: 1px solid #dcdcdc;
-  padding: 30px;
-  border-radius: 8px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-  margin-bottom: 20px;
-  color: #2c3e50;
+  padding: 50px;
 }
 
 .login-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #4285F4;
+  background-color: #4285f4;
   color: white;
   border: none;
-  border-radius: 6px;
+  padding: 15px 30px;
+  font-size: 18px;
+  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
